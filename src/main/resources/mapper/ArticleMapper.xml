@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lz.applet.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.lz.applet.entity.Article">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="column_id" jdbcType="INTEGER" property="columnId" />
+    <result column="lecturer_id" jdbcType="VARCHAR" property="lecturerId" />
+    <result column="lecturer_name" jdbcType="VARCHAR" property="lecturerName" />
+    <result column="img_type" jdbcType="INTEGER" property="imgType" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="brief_introduction" jdbcType="VARCHAR" property="briefIntroduction" />
+    <result column="creation_time" jdbcType="VARCHAR" property="creationTime" />
+    <result column="imgs" jdbcType="VARCHAR" property="imgs" />
+    <result column="recommend" jdbcType="INTEGER" property="recommend" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lz.applet.entity.Article">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, column_id, lecturer_id, lecturer_name, img_type, title, brief_introduction, creation_time, 
+    imgs, recommend, head_portrait, publisher
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.lz.applet.entity.ArticleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.lz.applet.entity.ArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lz.applet.entity.ArticleExample">
+    delete from article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lz.applet.entity.Article" useGeneratedKeys="true">
+    insert into article (column_id, lecturer_id, lecturer_name, 
+      img_type, title, brief_introduction, 
+      creation_time, imgs, recommend, 
+      head_portrait, publisher, content
+      )
+    values (#{columnId,jdbcType=INTEGER}, #{lecturerId,jdbcType=VARCHAR}, #{lecturerName,jdbcType=VARCHAR}, 
+      #{imgType,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{briefIntroduction,jdbcType=VARCHAR}, 
+      #{creationTime,jdbcType=VARCHAR}, #{imgs,jdbcType=VARCHAR}, #{recommend,jdbcType=INTEGER}, 
+      #{headPortrait,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lz.applet.entity.Article" useGeneratedKeys="true">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="columnId != null">
+        column_id,
+      </if>
+      <if test="lecturerId != null">
+        lecturer_id,
+      </if>
+      <if test="lecturerName != null">
+        lecturer_name,
+      </if>
+      <if test="imgType != null">
+        img_type,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="briefIntroduction != null">
+        brief_introduction,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+      <if test="imgs != null">
+        imgs,
+      </if>
+      <if test="recommend != null">
+        recommend,
+      </if>
+      <if test="headPortrait != null">
+        head_portrait,
+      </if>
+      <if test="publisher != null">
+        publisher,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="columnId != null">
+        #{columnId,jdbcType=INTEGER},
+      </if>
+      <if test="lecturerId != null">
+        #{lecturerId,jdbcType=VARCHAR},
+      </if>
+      <if test="lecturerName != null">
+        #{lecturerName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null">
+        #{imgType,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduction != null">
+        #{briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="imgs != null">
+        #{imgs,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null">
+        #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="headPortrait != null">
+        #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null">
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lz.applet.entity.ArticleExample" resultType="java.lang.Long">
+    select count(*) from article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+    <select id="backstageSelectAll" resultType="com.lz.applet.entity.Article">
+      select * from article where column_id = #{columnId} order by creation_time desc
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+    update article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.columnId != null">
+        column_id = #{record.columnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lecturerId != null">
+        lecturer_id = #{record.lecturerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lecturerName != null">
+        lecturer_name = #{record.lecturerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgType != null">
+        img_type = #{record.imgType,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.briefIntroduction != null">
+        brief_introduction = #{record.briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationTime != null">
+        creation_time = #{record.creationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgs != null">
+        imgs = #{record.imgs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommend != null">
+        recommend = #{record.recommend,jdbcType=INTEGER},
+      </if>
+      <if test="record.headPortrait != null">
+        head_portrait = #{record.headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publisher != null">
+        publisher = #{record.publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update article
+    set id = #{record.id,jdbcType=INTEGER},
+      column_id = #{record.columnId,jdbcType=INTEGER},
+      lecturer_id = #{record.lecturerId,jdbcType=VARCHAR},
+      lecturer_name = #{record.lecturerName,jdbcType=VARCHAR},
+      img_type = #{record.imgType,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      brief_introduction = #{record.briefIntroduction,jdbcType=VARCHAR},
+      creation_time = #{record.creationTime,jdbcType=VARCHAR},
+      imgs = #{record.imgs,jdbcType=VARCHAR},
+      recommend = #{record.recommend,jdbcType=INTEGER},
+      head_portrait = #{record.headPortrait,jdbcType=VARCHAR},
+      publisher = #{record.publisher,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update article
+    set id = #{record.id,jdbcType=INTEGER},
+      column_id = #{record.columnId,jdbcType=INTEGER},
+      lecturer_id = #{record.lecturerId,jdbcType=VARCHAR},
+      lecturer_name = #{record.lecturerName,jdbcType=VARCHAR},
+      img_type = #{record.imgType,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      brief_introduction = #{record.briefIntroduction,jdbcType=VARCHAR},
+      creation_time = #{record.creationTime,jdbcType=VARCHAR},
+      imgs = #{record.imgs,jdbcType=VARCHAR},
+      recommend = #{record.recommend,jdbcType=INTEGER},
+      head_portrait = #{record.headPortrait,jdbcType=VARCHAR},
+      publisher = #{record.publisher,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lz.applet.entity.Article">
+    update article
+    <set>
+      <if test="columnId != null">
+        column_id = #{columnId,jdbcType=INTEGER},
+      </if>
+      <if test="lecturerId != null">
+        lecturer_id = #{lecturerId,jdbcType=VARCHAR},
+      </if>
+      <if test="lecturerName != null">
+        lecturer_name = #{lecturerName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null">
+        img_type = #{imgType,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduction != null">
+        brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null">
+        creation_time = #{creationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="imgs != null">
+        imgs = #{imgs,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null">
+        recommend = #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="headPortrait != null">
+        head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null">
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lz.applet.entity.Article">
+    update article
+    set column_id = #{columnId,jdbcType=INTEGER},
+      lecturer_id = #{lecturerId,jdbcType=VARCHAR},
+      lecturer_name = #{lecturerName,jdbcType=VARCHAR},
+      img_type = #{imgType,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=VARCHAR},
+      imgs = #{imgs,jdbcType=VARCHAR},
+      recommend = #{recommend,jdbcType=INTEGER},
+      head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lz.applet.entity.Article">
+    update article
+    set column_id = #{columnId,jdbcType=INTEGER},
+      lecturer_id = #{lecturerId,jdbcType=VARCHAR},
+      lecturer_name = #{lecturerName,jdbcType=VARCHAR},
+      img_type = #{imgType,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=VARCHAR},
+      imgs = #{imgs,jdbcType=VARCHAR},
+      recommend = #{recommend,jdbcType=INTEGER},
+      head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      publisher = #{publisher,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectByColumnId" resultMap="BaseResultMap">
+      select *
+      from article where column_id = #{columnId} order by creation_time desc
+    </select>
+    <select id="selectByRecommend" resultMap="BaseResultMap">
+          select * from article where column_id = #{columnId} order by creation_time desc
+    </select>
+  <select id="selectCount" resultType="int">
+    SELECT COUNT(*) FROM article where column_id = #{columnId}
+  </select>
+    <select id="backstageSelectRecommendList" resultMap="BaseResultMap">
+      select *
+      from article where column_id = #{columnId}
+    </select>
+    <select id="getByLecturerName" resultType="com.lz.applet.entity.Article">
+      select * from article where lecturer_name = #{lecturerName}
+    </select>
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*) from article where lecturer_name = #{lecturerName}
+  </select>
+</mapper>

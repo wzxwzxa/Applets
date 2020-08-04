@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>分类管理</title>
+    <link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="static/bootstrap/css/mycss.css"/>
+    <style>
+        .btnactive{
+            background: #245580 !important;
+            color: #fff !important;
+        }
+        .loadingss{
+            width: 80px;
+            height: 40px;
+            margin: 0 auto;
+            margin-top:100px;
+        }
+        .loadingss span{
+            display: inline-block;
+            width: 8px;
+            height: 100%;
+            border-radius: 4px;
+            background: lightgreen;
+            -webkit-animation: load 1s ease infinite;
+        }
+        @-webkit-keyframes load{
+            0%,100%{
+                height: 40px;
+                background: lightgreen;
+            }
+            50%{
+                height: 70px;
+                margin: -15px 0;
+                background: lightblue;
+            }
+        }
+        .loadingss span:nth-child(2){
+            -webkit-animation-delay:0.2s;
+        }
+        .loadingss span:nth-child(3){
+            -webkit-animation-delay:0.4s;
+        }
+        .loadingss span:nth-child(4){
+            -webkit-animation-delay:0.6s;
+        }
+        .loadingss span:nth-child(5){
+            -webkit-animation-delay:0.8s;
+        }
+    </style>
+    <script type="text/javascript" src="static/bootstrap/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript">
+        var ids = void 0;
+
+        //			$(function(){
+        //				sc();
+        //			})
+        //编辑按钮功能
+        function bj(id){
+            ids  =id
+            $('#myModal').modal('show')
+         console.log(id)
+            // alert(id)
+            // window.location.href=""
+        }
+        
+        //删除功能按钮
+        function sc(articleId){
+             alert(articleId)
+             window.location.href="https://www.dududu.xyz:8080/backstageDeleteArticle?articleId="+articleId
+        }
+        function getdata() {
+          var name=  $('#name').val()
+          var password =  $('#pwd').val()
+            // alert(name)
+            // alert(password)
+            //这一句是隐藏模态框代码
+            $('#myModal').modal('hide')
+
+            window.location.href="http://localhost:8080/updateUser?id="+ids+"&name="+name+"&password="+password
+        }
+        function article(ars) {
+            alert(ars)
+        }
+        $(window).ready(function () {
+            $("#upload").click(function () {
+                var formData = new FormData();//获取表单中的文件
+                $("#form")[0]
+                formData.append("file",$("#form")[0])
+                alert(formData);
+                $.ajax({
+                    url:"upload",//后台的接口地址
+                    type:"post",//post请求方式
+                    data:formData,//参数
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success:function (data) {
+                        alert(data.newFileName);
+                    },error:function () {
+                        alert("操作失败~");
+                    }
+
+                })
+            });
+            //第一次调用传入第一页
+            gettable(1)
+        });
+        function submitBtn() {
+            showLoading()
+           var  forms = $(`<form action="/backstageAddToArticle" method="post" enctype="multipart/form-data"></form>`)
+          forms.html($("#tabFrom")[0])
+            $("body").append(forms)
+            forms.submit()
+        }
+        // function test() {
+        //     var form = new FormData(document.getElementById("tf"));
+        //     $.ajax({
+        //         url: "addToArticle",
+        //         type: "post",
+        //         data: form,
+        //         processData: false,
+        //         contentType: false,
+        //         success: function(data) {
+        //             alert("添加成功")
+        //             type: "get",
+        //             url: "backstageGetArticleList"
+        //         },
+        //         error: function(e) {
+        //             console.log(e);
+        //         }
+        //     });
+        // }
+        var totalPages = 1;//总页数
+        var pageNumber=1;//当前页
+        var pageSize = 5;//每页条数  每页条数该这个变量就是了 你先把接口写好ok
+        var totalItems = 0;//总条数
+        var isPrevious = false;//是否禁用下一页
+        var isNext= false;//是否禁用上一页
+        var content = [];//当前页面数据
+        function gettable(pageNum) {
+            showLoading()
+            pageNumber= pageNum
+            $.ajax({
+                url:"backstageArticlePaging",//后台的接口地址
+                type:"get",//post请求方式
+                data:{
+                    columnId:4002,
+                    pageNum:pageNum,
+                    pageSize:pageSize
+                },//参数
+                success:function (data) {
+                    content = data.data.data
+                    totalItems = data.data.count;
+                    // ${i.content}
+                    let str = data.data.data.map((i,j)=>`
+                <tr>
+                    <td>${i.title}</td>
+                    <td>${i.lecturerName}</td>
+                    <td>${i.briefIntroduction}</td>
+                    <td>${i.creationTime}</td>
+                    <td><img id="articleImg" src="${i.imgs}"/></td>
+                    <td>
+                     <button onclick="seeContent(${i.id})" class="btn btn-primary btn-sm" data-toggle="modal">查看内容</button>
+                        <button onclick="sc(${i.id})" class="btn btn-danger btn-sm" data-toggle="modal">删除</button>
+                     </td>
+                </tr>
+                    `).join('');
+                    $("#tabId").html(str)
+                    for (let i = 0;i<=data.data.data.length;i++) {
+                        if(data.data.data[i]){
+                            $(`#content${i}`).text(data.data.data[i].content)
+                        }
+
+                    }
+
+                    isNext = false;
+                    isPrevious = false
+                    if(pageNumber==1){
+                        isNext = true;
+                    }else if(totalItems==pageNumber){
+                        isPrevious = true
+                    }
+                    console.log(isNext,isPrevious);
+                    //总页数
+                    let totalPages = Math.ceil(totalItems/pageSize);
+                    let paginationStr  =`<li class="${isNext?'disabled':''}"  onclick="nextPage(0)"><a href="javascript:void(0)">&laquo;</a></li>`
+                    for(let i=1;i<=totalPages;i++){
+                        paginationStr+=`<li onclick="gettable(${i})"><a href="javascript:void(0)" class="${i==pageNumber?'btnactive':''}">${i}</a></li>`
+                    }
+                    paginationStr+=`<li class="${isPrevious?'disabled':''}" onclick="nextPage(1)"><a href="javascript:void(0)">&raquo;</a></li>
+    <span style="line-height: 34px;margin-left: 12px;">当前 ${pageNumber} 页/共 ${totalPages} 页，共 ${totalItems} 条/显示 ${pageSize*pageNumber-pageSize+1}-${pageSize*pageNumber} 条</span>`
+
+                    $("#pagination").html(paginationStr)
+                    hideLoading()
+                },error:function () {
+                    hideLoading()
+                    alert("操作失败~");
+                }
+            })
+        }
+        function nextPage(type) {
+        if(!type){
+            //    上一页
+            if(!isNext){
+                gettable(pageNumber-1)
+            }
+
+        }else{
+            if(!isPrevious){
+                gettable(pageNumber+1)
+            }
+        }
+
+    }
+        //展示loading框
+        function showLoading(){
+            $('#loadingModal').modal({backdrop: 'static', keyboard: false});
+        }
+        //隐藏掉loading框
+       function hideLoading(){
+                $('#loadingModal').modal('hide');
+            }
+        // 查看内容
+        function seeContent(val) {
+            let [res]=content.filter(i=>i.id==val);
+            $("#modalTitle").text(res.briefIntroduction);
+            $("#modalContent").html(res.content);
+
+            $('#seeContent').modal('show')
+        }
+    </script>
+</head>
+<body>
+<!--//     <li><a href="javascript:void(0)">&laquo;</a></li>-->
+<!--//     <li><a href="#">1</a></li>-->
+<!--//     <li><a href="#">&raquo;</a></li>-->
+<!--<div>-->
+    <!--<ul th:each="userList:${userList}">-->
+        <!--<li th:text="${userList.name}"/>-->
+        <!--<li th:text="${userList.password}"/>-->
+    <!--</ul>-->
+<!--</div>-->
+<div>
+
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">查看文章</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">添加文章</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <table class="table table-striped">
+                <tr>
+                    <td>主题</td>
+                    <td>讲师名称</td>
+                    <td>简介</td>
+                    <td>创建时间</td>
+                    <td>图片</td>
+                    <td>操作</td>
+                </tr>
+                <!--<tr id="tabId" th:each="articleList:${articleList}">-->
+                <tbody id="tabId" ></tbody>
+                    <!--<td th:text="${articleList.title}"></td>-->
+                    <!--<td th:text="${articleList.lecturerName}"></td>-->
+                    <!--<td th:text="${articleList.briefIntroduction}"></td>-->
+                    <!--<td style="width: 80px" th:text="${articleList.content}"></td>-->
+                    <!--<td th:text="${articleList.creationTime}"></td>-->
+                    <!--<td>-->
+                        <!--这个id你需要吗？不记得了只有一个？我都忘了用没用到，有问题在说与或有有用到，设置长宽的再css里面设置的-->
+                        <!--<img  th:src="${articleList.imgs}" id="articleImg">-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<button th:onclick="'sc('+${articleList.id}+')'" class="btn btn-primary btn-lg" data-toggle="modal" >删除</button>-->
+                    <!--</td>-->
+            </table>
+            <div>
+                <ul class="pagination" id="pagination">
+
+                </ul>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">修改管理员信息</h4>
+                    </div>
+                    修改用户名
+                    <div class="modal-body">
+                        <input name="name" id="name" style="width: 200px; height:35px; border-radius: 5px;"/>
+                    </div>
+                    修改密码
+                    <div class="modal-body">
+                        <input name="password" id="pwd" style="width: 200px; hesight:35px; border-radius: 5px;"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" onclick="getdata()" class="btn btn-primary">提交更改</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+            <!--action="/backstageAddToArticle" method="post" enctype="multipart/form-data"-->
+            <!--<form id="tf"  action="/backstageAddToArticle" method="post" enctype="multipart/form-data">-->
+                <table id="tabFrom" style="margin-left: 50px; margin-top: 50px;">
+                    <tr>
+                        <td>
+                            <div class="changeDiv">
+                                <a>讲师名称</a>
+                                <input type="text" name="lecturerName">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="changeDiv">
+                                <a>文章主题</a>
+                                <input type="text" name="title">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="changeDiv">
+                                <a>文章简介</a>
+                                <input type="text" name="briefIntroduction">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="columnId" value="4002">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="imgType" value="0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="changeDiv">
+                                <a>是否推荐</a>
+                                <!--<input type="text">-->
+                                <select name="recommend">
+                                    <option value="4001">是</option>
+                                    <option value="1">否</option>
+                                </select>
+
+                                <!--<datalist id="sexlist1">-->
+                                    <!--<option value="0">是</option>-->
+                                    <!--<option value="1">否</option>-->
+                                <!--</datalist>-->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="changeDiv">
+                                <a>文章内容</a>
+                                <textarea style="font-size: 19px" type="text" name="content" rows="15" cols="120">
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                    ##图片名称##
+                                    <h3>正文</h3>
+                                </textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file1" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file2" name="file"/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file3" name="file"/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file4" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file5" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file6" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file7" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file8" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file9" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" id="file10" name="file"/>
+                        </td>
+                    </tr>
+
+                    <tr  >
+                        <td>
+                            <button style="margin: 15px" th:height="15" th:width="40" onclick="submitBtn()" >&nbsp;&nbsp;提交文章&nbsp;&nbsp;</button>
+                        </td>
+                    </tr>
+                    <!--<tr>-->
+                    <!--<td align="right"></td>-->
+                    <!--<td><input type="submit" value="确认添加"/></td>-->
+                    <!--</tr>-->
+                </table>
+            <!--</form>-->
+            <!--<form action="http://localhost:8888/addUser">-->
+                <!--<table style="margin-left: 50px; margin-top: 50px;">-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<div class="changeDiv">-->
+                                <!--<a>新闻类别</a>-->
+                                <!--<input type="text" list="sexlist">-->
+                                <!--<datalist id="sexlist">-->
+                                    <!--<option>视频类</option>-->
+                                    <!--<option>文章类</option>-->
+                                <!--</datalist>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<div class="changeDiv">-->
+                                <!--<a>新闻主题</a>-->
+                                <!--<input type="text" name="title">-->
+                            <!--</div>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<div class="changeDiv">-->
+                                <!--<a>文章简介</a>-->
+                                <!--<input type="text" name="briefIntroduction">-->
+                            <!--</div>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<div class="changeDiv">-->
+                                <!--<a>是否推荐</a>-->
+                                <!--<input type="text" list="sexlist1">-->
+                                <!--<datalist id="sexlist1">-->
+                                    <!--<option>是</option>-->
+                                    <!--<option>否</option>-->
+                                <!--</datalist>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<div class="changeDiv">-->
+                            <!--<a>文章内容</a>-->
+                            <!--<textarea type="text" rows="5" cols="50"></textarea>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+
+                    <!--<tr>-->
+                        <!--<td align="right"></td>-->
+                        <!--<td><input type="submit" value="确认添加"/></td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</form>-->
+        </div>
+
+
+
+
+
+    </div>
+
+    <!--loading-->
+
+    <div class="modal fade" id="loadingModal" backdrop="static" keyboard="false">
+        <div style="width: 200px;height:100px; z-index: 20000; position: absolute; text-align: center; left: 50%; top: 50%;margin-left:-100px;margin-top:-10px">
+                <div class="loadingss">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+        </div>
+    </div>
+    <!--查看内容-->
+    <div class="modal fade" id="seeContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="modalTitle">
+
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div id="modalContent"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

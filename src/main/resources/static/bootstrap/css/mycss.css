@@ -1,0 +1,71 @@
+/*标题栏css设置*/
+*{
+	padding: 0;
+	margin: 0;
+}
+#top{
+	/*将内联元素转换为块级元素*/
+	display: block;
+	background-color: #245580;
+	height: 50px;
+}
+
+#top span{
+	display: block;
+	padding: 10px;
+	color: white;
+	font-size: 20px;
+}
+#top a {
+	display: block;
+	padding: 2px;
+	color: white;
+	font-size: 25px;
+	text-decoration: none;
+	background-color: rgb(16,87,149);
+	width: 150px;
+}
+#zuo{
+	/*去掉链接下划线*/
+	text-decoration: none;
+	width: 190px;
+	/*对左边一栏进行定位*/
+	position: relative;
+}
+#nbkj{
+    margin-top: -130px;
+	margin-left: 200px;
+
+	height: 600px;
+}
+#lzimg{
+	width: 30px;
+	height: 30px;
+}
+
+#logout{
+	width: 30px;
+	height: 30px;
+}
+#articleImg{
+    width: 80px;
+    height: 60px;
+}
+
+.lzimgs{
+	width: 15px;
+	height: 15px;
+}
+
+div.changeDiv input {
+    font-size: 1em;
+    font-family: 微软雅黑, serif;
+    width: 60%;
+    display: block;
+    margin-left: 10%;
+    opacity: 0.8;
+    padding: 0.2em;
+    color: #000000;
+    border-radius: 10px;
+    background-color: #bed8df;
+}

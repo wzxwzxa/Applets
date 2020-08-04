@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lz.applet.mapper.ReplyMapper">
+  <resultMap id="BaseResultMap" type="com.lz.applet.entity.Reply">
+    <id column="r_id" jdbcType="INTEGER" property="rId" />
+    <result column="r_userid" jdbcType="VARCHAR" property="rUserid" />
+    <result column="r_name" jdbcType="VARCHAR" property="rName" />
+    <result column="r_creatime" jdbcType="VARCHAR" property="rCreatime" />
+    <result column="r_content" jdbcType="VARCHAR" property="rContent" />
+    <result column="r_otherid" jdbcType="VARCHAR" property="rOtherid" />
+    <result column="r_words" jdbcType="VARCHAR" property="rWords" />
+    <result column="r_contentid" jdbcType="INTEGER" property="rContentid" />
+    <result column="r_state" jdbcType="INTEGER" property="rState" />
+    <result column="r_respondent" jdbcType="VARCHAR" property="rRespondent" />
+    <result column="r_avatar_url" jdbcType="VARCHAR" property="rAvatarUrl" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    r_id, r_userid, r_name, r_creatime, r_content, r_otherid, r_words, r_contentid, r_state, 
+    r_respondent, r_avatar_url
+  </sql>
+  <select id="selectByExample" parameterType="com.lz.applet.entity.ReplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reply
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from reply
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lz.applet.entity.ReplyExample">
+    delete from reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="r_id" keyProperty="rId" parameterType="com.lz.applet.entity.Reply" useGeneratedKeys="true">
+    insert into reply (r_userid, r_name, r_creatime, 
+      r_content, r_otherid, r_words, 
+      r_contentid, r_state, r_respondent, 
+      r_avatar_url)
+    values (#{rUserid,jdbcType=VARCHAR}, #{rName,jdbcType=VARCHAR}, #{rCreatime,jdbcType=VARCHAR}, 
+      #{rContent,jdbcType=VARCHAR}, #{rOtherid,jdbcType=VARCHAR}, #{rWords,jdbcType=VARCHAR}, 
+      #{rContentid,jdbcType=INTEGER}, #{rState,jdbcType=INTEGER}, #{rRespondent,jdbcType=VARCHAR}, 
+      #{rAvatarUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="r_id" keyProperty="rId" parameterType="com.lz.applet.entity.Reply" useGeneratedKeys="true">
+    insert into reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rUserid != null">
+        r_userid,
+      </if>
+      <if test="rName != null">
+        r_name,
+      </if>
+      <if test="rCreatime != null">
+        r_creatime,
+      </if>
+      <if test="rContent != null">
+        r_content,
+      </if>
+      <if test="rOtherid != null">
+        r_otherid,
+      </if>
+      <if test="rWords != null">
+        r_words,
+      </if>
+      <if test="rContentid != null">
+        r_contentid,
+      </if>
+      <if test="rState != null">
+        r_state,
+      </if>
+      <if test="rRespondent != null">
+        r_respondent,
+      </if>
+      <if test="rAvatarUrl != null">
+        r_avatar_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rUserid != null">
+        #{rUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="rName != null">
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rCreatime != null">
+        #{rCreatime,jdbcType=VARCHAR},
+      </if>
+      <if test="rContent != null">
+        #{rContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rOtherid != null">
+        #{rOtherid,jdbcType=VARCHAR},
+      </if>
+      <if test="rWords != null">
+        #{rWords,jdbcType=VARCHAR},
+      </if>
+      <if test="rContentid != null">
+        #{rContentid,jdbcType=INTEGER},
+      </if>
+      <if test="rState != null">
+        #{rState,jdbcType=INTEGER},
+      </if>
+      <if test="rRespondent != null">
+        #{rRespondent,jdbcType=VARCHAR},
+      </if>
+      <if test="rAvatarUrl != null">
+        #{rAvatarUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lz.applet.entity.ReplyExample" resultType="java.lang.Long">
+    select count(*) from reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update reply
+    <set>
+      <if test="record.rId != null">
+        r_id = #{record.rId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rUserid != null">
+        r_userid = #{record.rUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rName != null">
+        r_name = #{record.rName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rCreatime != null">
+        r_creatime = #{record.rCreatime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rContent != null">
+        r_content = #{record.rContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rOtherid != null">
+        r_otherid = #{record.rOtherid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rWords != null">
+        r_words = #{record.rWords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rContentid != null">
+        r_contentid = #{record.rContentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rState != null">
+        r_state = #{record.rState,jdbcType=INTEGER},
+      </if>
+      <if test="record.rRespondent != null">
+        r_respondent = #{record.rRespondent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rAvatarUrl != null">
+        r_avatar_url = #{record.rAvatarUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update reply
+    set r_id = #{record.rId,jdbcType=INTEGER},
+      r_userid = #{record.rUserid,jdbcType=VARCHAR},
+      r_name = #{record.rName,jdbcType=VARCHAR},
+      r_creatime = #{record.rCreatime,jdbcType=VARCHAR},
+      r_content = #{record.rContent,jdbcType=VARCHAR},
+      r_otherid = #{record.rOtherid,jdbcType=VARCHAR},
+      r_words = #{record.rWords,jdbcType=VARCHAR},
+      r_contentid = #{record.rContentid,jdbcType=INTEGER},
+      r_state = #{record.rState,jdbcType=INTEGER},
+      r_respondent = #{record.rRespondent,jdbcType=VARCHAR},
+      r_avatar_url = #{record.rAvatarUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lz.applet.entity.Reply">
+    update reply
+    <set>
+      <if test="rUserid != null">
+        r_userid = #{rUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="rName != null">
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rCreatime != null">
+        r_creatime = #{rCreatime,jdbcType=VARCHAR},
+      </if>
+      <if test="rContent != null">
+        r_content = #{rContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rOtherid != null">
+        r_otherid = #{rOtherid,jdbcType=VARCHAR},
+      </if>
+      <if test="rWords != null">
+        r_words = #{rWords,jdbcType=VARCHAR},
+      </if>
+      <if test="rContentid != null">
+        r_contentid = #{rContentid,jdbcType=INTEGER},
+      </if>
+      <if test="rState != null">
+        r_state = #{rState,jdbcType=INTEGER},
+      </if>
+      <if test="rRespondent != null">
+        r_respondent = #{rRespondent,jdbcType=VARCHAR},
+      </if>
+      <if test="rAvatarUrl != null">
+        r_avatar_url = #{rAvatarUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lz.applet.entity.Reply">
+    update reply
+    set r_userid = #{rUserid,jdbcType=VARCHAR},
+      r_name = #{rName,jdbcType=VARCHAR},
+      r_creatime = #{rCreatime,jdbcType=VARCHAR},
+      r_content = #{rContent,jdbcType=VARCHAR},
+      r_otherid = #{rOtherid,jdbcType=VARCHAR},
+      r_words = #{rWords,jdbcType=VARCHAR},
+      r_contentid = #{rContentid,jdbcType=INTEGER},
+      r_state = #{rState,jdbcType=INTEGER},
+      r_respondent = #{rRespondent,jdbcType=VARCHAR},
+      r_avatar_url = #{rAvatarUrl,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+    <delete id="deleteCommentById">
+       delete from reply where r_otherid = #{commentId}
+    </delete>
+  <select id="selectByCommentId" resultMap="BaseResultMap">
+       select * from reply where r_otherid = #{getcId}
+  </select>
+</mapper>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>分类管理</title>
+    <link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="static/bootstrap/css/mycss.css"/>
+    <script type="text/javascript" src="static/bootstrap/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript">
+        var ids = void 0;
+
+        //			$(function(){
+        //				sc();
+        //			})
+        //编辑按钮功能
+        function bj(id){
+            ids  =id
+            $('#myModal').modal('show')
+         console.log(id)
+            // alert(id)
+            // window.location.href=""
+        }
+        
+        //删除功能按钮
+        function sc(lecturerId){
+             alert(lecturerId)
+             window.location.href="https://www.dududu.xyz:8080/deleteLecturerId?lecturerId="+lecturerId
+        }
+        function getdata() {
+          var name=  $('#name').val()
+          var password =  $('#pwd').val()
+            // alert(name)
+            // alert(password)
+            //这一句是隐藏模态框代码
+            $('#myModal').modal('hide')
+            console.log(name,password,ids)
+            window.location.href="http://localhost:8080/updateUser?id="+ids+"&name="+name+"&password="+password
+        }
+    </script>
+</head>
+<body>
+<!--<div>-->
+    <!--<ul th:each="userList:${userList}">-->
+        <!--<li th:text="${userList.name}"/>-->
+        <!--<li th:text="${userList.password}"/>-->
+    <!--</ul>-->
+<!--</div>-->
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">查看讲师</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">添加讲师</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <table class="table table-striped">
+                <tr>
+                    <td>讲师名称</td>
+                    <td>讲师职务</td>
+                    <td>讲师图片</td>
+                    <td>讲师简介</td>
+                    <td>从业时间</td>
+                </tr>
+                <tr th:each="lecturerList:${lecturerList}">
+                    <td th:text="${lecturerList.lecturerName}"></td>
+                    <td th:text="${lecturerList.lecturerPost}"></td>
+                    <td>
+                        <img th:src="${lecturerList.img}" style="width: 80px" height="120px">
+                    </td>
+                    <td th:text="${lecturerList.lecturerIntroduce}">
+                    </td>
+                    <td th:text="${lecturerList.workingYears}">
+                    </td>
+                    <!--th:onclick="'bj('+${userList.id}+')'" data-target="#myModal"-->
+                    <!--<td>-->
+                        <!--<button th:onclick="'bj('+${lecturerList.id}+')'" class="btn btn-primary btn-lg" data-toggle="modal" >编辑</button>-->
+                    <!--</td>-->
+                    <!--<td th:onclick="'sc('+${userList.id}+')'">删除</td>-->
+                    <td>
+                        <button th:onclick="'sc('+${lecturerList.id}+')'" class="btn btn-primary btn-lg" data-toggle="modal" >删除</button>
+                    </td>
+            </table>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">修改管理员信息</h4>
+                    </div>
+                    修改讲师名称
+                    <div class="modal-body">
+                        <input name="name" id="name" style="width: 200px; height:35px; border-radius: 5px;"/>
+                    </div>
+                    修改讲师图片
+                    <div class="modal-body">
+                        <input name="password" style="width: 200px; hesight:35px; border-radius: 5px;"/>
+                    </div>
+                    修改讲师简介
+                    <div class="modal-body">
+                        <input name="password" style="width: 200px; hesight:35px; border-radius: 5px;"/>
+                    </div>
+                    修改讲师从业时间
+                    <div class="modal-body">
+                        <input name="password" style="width: 200px; hesight:35px; border-radius: 5px;"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" onclick="getdata()" class="btn btn-primary">提交更改</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+            <form action="/backstageAddToLecturer" method="post" enctype="multipart/form-data">
+                <table style="margin-left: 50px; margin-top: 50px;">
+                    <tr>
+                        <td align="right">讲师姓名</td>
+                        <td><input name="lecturerName" style="width: 200px; height:35px; border-radius: 5px;"/></td>
+                    </tr>
+                    <tr>
+                        <td align="right">讲师职务</td>
+                        <td><input name="lecturerPost" style="width: 200px; height:35px; border-radius: 5px;"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">讲师图片</td>
+                        <td>
+                            <input type="file" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">教学年限</td>
+                        <td><input name="workingYears" style="width: 200px; height:35px; border-radius: 5px;"/></td>
+                    </tr>
+                    <tr>
+                        <td align="right">讲师简介</td>
+                        <td>
+                            <div class="changeDiv">
+                                <textarea type="text" name="lecturerIntroduce" rows="5" cols="50"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"></td>
+                        <td><button type="submit">提交信息</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

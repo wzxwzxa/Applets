@@ -1,0 +1,11 @@
+[ WARN ] [2020-07-24 09:12:37.065] org.mybatis.spring.mapper.ClassPathMapperScanner [44] [main]- Skipping MapperFactoryBean with name 'articleMapper' and 'com.lz.applet.mapper.ArticleMapper' mapperInterface. Bean already defined with the same name!
+[ WARN ] [2020-07-24 09:12:37.065] org.mybatis.spring.mapper.ClassPathMapperScanner [44] [main]- Skipping MapperFactoryBean with name 'columnMapper' and 'com.lz.applet.mapper.ColumnMapper' mapperInterface. Bean already defined with the same name!
+[ WARN ] [2020-07-24 09:12:37.065] org.mybatis.spring.mapper.ClassPathMapperScanner [44] [main]- Skipping MapperFactoryBean with name 'studentMapper' and 'com.lz.applet.mapper.StudentMapper' mapperInterface. Bean already defined with the same name!
+[ WARN ] [2020-07-24 09:12:39.518] org.thymeleaf.templatemode.TemplateMode [150] [main]- [THYMELEAF][main] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+[ WARN ] [2020-07-24 09:13:25.495] org.springframework.web.servlet.PageNotFound [1251] [http-nio-8080-exec-6]- No mapping for GET /favicon.ico
+[ WARN ] [2020-07-24 09:46:49.297] org.mybatis.spring.mapper.ClassPathMapperScanner [44] [main]- Skipping MapperFactoryBean with name 'articleMapper' and 'com.lz.applet.mapper.ArticleMapper' mapperInterface. Bean already defined with the same name!
+[ WARN ] [2020-07-24 09:46:49.298] org.mybatis.spring.mapper.ClassPathMapperScanner [44] [main]- Skipping MapperFactoryBean with name 'columnMapper' and 'com.lz.applet.mapper.ColumnMapper' mapperInterface. Bean already defined with the same name!
+[ WARN ] [2020-07-24 09:46:49.298] org.mybatis.spring.mapper.ClassPathMapperScanner [44] [main]- Skipping MapperFactoryBean with name 'studentMapper' and 'com.lz.applet.mapper.StudentMapper' mapperInterface. Bean already defined with the same name!
+[ WARN ] [2020-07-24 09:46:52.025] org.thymeleaf.templatemode.TemplateMode [150] [main]- [THYMELEAF][main] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+[ WARN ] [2020-07-24 09:46:52.555] com.lz.applet.AppletApplicationTests [17] [main]- log:warn
+[ WARN ] [2020-07-24 14:04:00.430] com.zaxxer.hikari.pool.HikariPool [787] [HikariPool-1 housekeeper]- HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4h46m43s251ms537µs800ns).
