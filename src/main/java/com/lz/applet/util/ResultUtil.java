@@ -1,5 +1,6 @@
 package com.lz.applet.util;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lz.applet.entity.Article;
 import com.lz.applet.entity.Comment;
 
@@ -17,11 +18,13 @@ public class ResultUtil {
     /**
      * 定义返回的状态 200/500
      */
+    @JsonIgnore
     private Integer status;
 
     /**
      * 响应的消息
      */
+    @JsonIgnore
     private String msg;
 
     /**
@@ -41,19 +44,19 @@ public class ResultUtil {
     }
 
     /**
-     *
      * @return
      */
-    public static Map result(List<Article> articleList, int count){
+    public static Map result(List<Article> articleList, int count) {
         HashMap<Object, Object> map = new HashMap<>(16);
-        map.put("data",articleList);
-        map.put("count",count);
+        map.put("data", articleList);
+        map.put("count", count);
         return map;
     }
-    public static Map resultComment(List<Comment> commentList, int count){
+
+    public static Map resultComment(List<Comment> commentList, int count) {
         HashMap<Object, Object> map = new HashMap<>(16);
-        map.put("data",commentList);
-        map.put("count",count);
+        map.put("data", commentList);
+        map.put("count", count);
         return map;
     }
 

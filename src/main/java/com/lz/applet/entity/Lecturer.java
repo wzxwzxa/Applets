@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * lecturer
- * @author 
+ *
+ * @author
  */
 public class Lecturer implements Serializable {
     private Integer id;
@@ -97,11 +98,11 @@ public class Lecturer implements Serializable {
         }
         Lecturer other = (Lecturer) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getLecturerName() == null ? other.getLecturerName() == null : this.getLecturerName().equals(other.getLecturerName()))
-            && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
-            && (this.getLecturerIntroduce() == null ? other.getLecturerIntroduce() == null : this.getLecturerIntroduce().equals(other.getLecturerIntroduce()))
-            && (this.getWorkingYears() == null ? other.getWorkingYears() == null : this.getWorkingYears().equals(other.getWorkingYears()))
-            && (this.getLecturerPost() == null ? other.getLecturerPost() == null : this.getLecturerPost().equals(other.getLecturerPost()));
+                && (this.getLecturerName() == null ? other.getLecturerName() == null : this.getLecturerName().equals(other.getLecturerName()))
+                && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
+                && (this.getLecturerIntroduce() == null ? other.getLecturerIntroduce() == null : this.getLecturerIntroduce().equals(other.getLecturerIntroduce()))
+                && (this.getWorkingYears() == null ? other.getWorkingYears() == null : this.getWorkingYears().equals(other.getWorkingYears()))
+                && (this.getLecturerPost() == null ? other.getLecturerPost() == null : this.getLecturerPost().equals(other.getLecturerPost()));
     }
 
     @Override

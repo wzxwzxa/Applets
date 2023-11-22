@@ -16,43 +16,45 @@
         //				sc();
         //			})
         //编辑按钮功能
-        function bj(id){
-            ids  =id
+        function bj(id) {
+            ids = id
             $('#myModal').modal('show')
-         console.log(id)
+            console.log(id)
             // alert(id)
             // window.location.href=""
         }
-        
+
         //删除功能按钮
-        function sc(lecturerId){
-             alert(lecturerId)
-             window.location.href="https://www.dududu.xyz:8080/deleteLecturerId?lecturerId="+lecturerId
+        function sc(lecturerId) {
+            alert(lecturerId)
+            window.location.href = "https://www.dududu.xyz:8080/deleteLecturerId?lecturerId=" + lecturerId
         }
+
         function getdata() {
-          var name=  $('#name').val()
-          var password =  $('#pwd').val()
+            var name = $('#name').val()
+            var password = $('#pwd').val()
             // alert(name)
             // alert(password)
             //这一句是隐藏模态框代码
             $('#myModal').modal('hide')
-            console.log(name,password,ids)
-            window.location.href="http://localhost:8080/updateUser?id="+ids+"&name="+name+"&password="+password
+            console.log(name, password, ids)
+            window.location.href = "http://localhost:8080/updateUser?id=" + ids + "&name=" + name + "&password=" + password
         }
     </script>
 </head>
 <body>
 <!--<div>-->
-    <!--<ul th:each="userList:${userList}">-->
-        <!--<li th:text="${userList.name}"/>-->
-        <!--<li th:text="${userList.password}"/>-->
-    <!--</ul>-->
+<!--<ul th:each="userList:${userList}">-->
+<!--<li th:text="${userList.name}"/>-->
+<!--<li th:text="${userList.password}"/>-->
+<!--</ul>-->
 <!--</div>-->
 <div>
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">查看讲师</a></li>
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                  data-toggle="tab">查看讲师</a></li>
         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">添加讲师</a></li>
     </ul>
 
@@ -79,15 +81,18 @@
                     </td>
                     <!--th:onclick="'bj('+${userList.id}+')'" data-target="#myModal"-->
                     <!--<td>-->
-                        <!--<button th:onclick="'bj('+${lecturerList.id}+')'" class="btn btn-primary btn-lg" data-toggle="modal" >编辑</button>-->
+                    <!--<button th:onclick="'bj('+${lecturerList.id}+')'" class="btn btn-primary btn-lg" data-toggle="modal" >编辑</button>-->
                     <!--</td>-->
                     <!--<td th:onclick="'sc('+${userList.id}+')'">删除</td>-->
                     <td>
-                        <button th:onclick="'sc('+${lecturerList.id}+')'" class="btn btn-primary btn-lg" data-toggle="modal" >删除</button>
+                        <button th:onclick="'sc('+${lecturerList.id}+')'" class="btn btn-primary btn-lg"
+                                data-toggle="modal">删除
+                        </button>
                     </td>
             </table>
         </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -111,7 +116,7 @@
                         <input name="password" style="width: 200px; hesight:35px; border-radius: 5px;"/>
                     </div>
                     <div class="modal-footer">
-                        <button type="button"  class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                         <button type="button" onclick="getdata()" class="btn btn-primary">提交更改</button>
                     </div>
                 </div><!-- /.modal-content -->
@@ -148,7 +153,9 @@
                     </tr>
                     <tr>
                         <td align="right"></td>
-                        <td><button type="submit">提交信息</button></td>
+                        <td>
+                            <button type="submit">提交信息</button>
+                        </td>
                     </tr>
                 </table>
             </form>

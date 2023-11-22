@@ -78,6 +78,7 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 根据openid查询用户
+     *
      * @param openid
      * @return
      */

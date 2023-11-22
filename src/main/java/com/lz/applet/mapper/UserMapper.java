@@ -31,6 +31,7 @@ public interface UserMapper {
 
     /**
      * 根据 用户名查询用户是否存在
+     *
      * @param username
      * @return
      */
@@ -38,6 +39,7 @@ public interface UserMapper {
 
     /**
      * 查询所有的用户
+     *
      * @return
      */
     List<User> selectAll();

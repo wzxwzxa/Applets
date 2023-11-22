@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * user
- * @author 
+ *
+ * @author
  */
 public class User implements Serializable {
     private Integer id;
@@ -71,9 +72,9 @@ public class User implements Serializable {
         }
         User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getPerms() == null ? other.getPerms() == null : this.getPerms().equals(other.getPerms()));
+                && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
+                && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
+                && (this.getPerms() == null ? other.getPerms() == null : this.getPerms().equals(other.getPerms()));
     }
 
     @Override

@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * article
- * @author 
+ *
+ * @author
  */
 public class Article implements Serializable {
 
@@ -203,18 +204,18 @@ public class Article implements Serializable {
         }
         Article other = (Article) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getColumnId() == null ? other.getColumnId() == null : this.getColumnId().equals(other.getColumnId()))
-            && (this.getLecturerId() == null ? other.getLecturerId() == null : this.getLecturerId().equals(other.getLecturerId()))
-            && (this.getLecturerName() == null ? other.getLecturerName() == null : this.getLecturerName().equals(other.getLecturerName()))
-            && (this.getImgType() == null ? other.getImgType() == null : this.getImgType().equals(other.getImgType()))
-            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
-            && (this.getBriefIntroduction() == null ? other.getBriefIntroduction() == null : this.getBriefIntroduction().equals(other.getBriefIntroduction()))
-            && (this.getCreationTime() == null ? other.getCreationTime() == null : this.getCreationTime().equals(other.getCreationTime()))
-            && (this.getImgs() == null ? other.getImgs() == null : this.getImgs().equals(other.getImgs()))
-            && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
-            && (this.getHeadPortrait() == null ? other.getHeadPortrait() == null : this.getHeadPortrait().equals(other.getHeadPortrait()))
-            && (this.getPublisher() == null ? other.getPublisher() == null : this.getPublisher().equals(other.getPublisher()))
-            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()));
+                && (this.getColumnId() == null ? other.getColumnId() == null : this.getColumnId().equals(other.getColumnId()))
+                && (this.getLecturerId() == null ? other.getLecturerId() == null : this.getLecturerId().equals(other.getLecturerId()))
+                && (this.getLecturerName() == null ? other.getLecturerName() == null : this.getLecturerName().equals(other.getLecturerName()))
+                && (this.getImgType() == null ? other.getImgType() == null : this.getImgType().equals(other.getImgType()))
+                && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
+                && (this.getBriefIntroduction() == null ? other.getBriefIntroduction() == null : this.getBriefIntroduction().equals(other.getBriefIntroduction()))
+                && (this.getCreationTime() == null ? other.getCreationTime() == null : this.getCreationTime().equals(other.getCreationTime()))
+                && (this.getImgs() == null ? other.getImgs() == null : this.getImgs().equals(other.getImgs()))
+                && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
+                && (this.getHeadPortrait() == null ? other.getHeadPortrait() == null : this.getHeadPortrait().equals(other.getHeadPortrait()))
+                && (this.getPublisher() == null ? other.getPublisher() == null : this.getPublisher().equals(other.getPublisher()))
+                && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()));
     }
 
     @Override

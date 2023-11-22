@@ -19,11 +19,12 @@ public class ShiroConfig {
 
     /**
      * ShiroFileFactoryBean : 3
+     *
      * @param defaultWebSecurityManager
      * @return
      */
-    @Bean(name="shiroFilterFactoryBean")
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager defaultWebSecurityManager){
+    @Bean(name = "shiroFilterFactoryBean")
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager defaultWebSecurityManager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         //设置安全管理器
         bean.setSecurityManager(defaultWebSecurityManager);
@@ -43,26 +44,26 @@ public class ShiroConfig {
 
         //让下面对这些请求需要认证
         //下面这些请求需要认证
-        filterMap.put("backstageGetArticleList","authc");
-        filterMap.put("backstageAddToArticle","authc");
-        filterMap.put("backstageDeleteArticle","authc");
-        filterMap.put("backstageGetVideoList","authc");
-        filterMap.put("backstageAddVideo","authc");
-        filterMap.put("backstageDeleteVideoById","authc");
-        filterMap.put("backstageGetLecturerList","authc");
-        filterMap.put("backstageAddToLecturer","authc");
-        filterMap.put("deleteLecturerId","authc");
-        filterMap.put("getRecommendList","authc");
-        filterMap.put("deleteRecommend","authc");
-        filterMap.put("userManagement","authc");
-        filterMap.put("addUser","authc");
-        filterMap.put("deleteUser","authc");
-        filterMap.put("updateUser","authc");
-        filterMap.put("getCommentAll","authc");
-        filterMap.put("deleteCommentById","authc");
+        filterMap.put("backstageGetArticleList", "authc");
+        filterMap.put("backstageAddToArticle", "authc");
+        filterMap.put("backstageDeleteArticle", "authc");
+        filterMap.put("backstageGetVideoList", "authc");
+        filterMap.put("backstageAddVideo", "authc");
+        filterMap.put("backstageDeleteVideoById", "authc");
+        filterMap.put("backstageGetLecturerList", "authc");
+        filterMap.put("backstageAddToLecturer", "authc");
+        filterMap.put("deleteLecturerId", "authc");
+        filterMap.put("getRecommendList", "authc");
+        filterMap.put("deleteRecommend", "authc");
+        filterMap.put("userManagement", "authc");
+        filterMap.put("addUser", "authc");
+        filterMap.put("deleteUser", "authc");
+        filterMap.put("updateUser", "authc");
+        filterMap.put("getCommentAll", "authc");
+        filterMap.put("deleteCommentById", "authc");
 
         //授权 。 如果未授权会跳转到未授权页面
-        filterMap.put("/userManagement","perms[user:admin]");
+        filterMap.put("/userManagement", "perms[user:admin]");
 //        filterMap.put("")
 
         bean.setFilterChainDefinitionMap(filterMap);
@@ -78,10 +79,11 @@ public class ShiroConfig {
 
     /**
      * DafaulWebSecurityManager :2
+     *
      * @return
      */
-    @Bean(name="securityManager")
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm){
+    @Bean(name = "securityManager")
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //关联 、管理userRealm
         securityManager.setRealm(userRealm);
@@ -90,19 +92,20 @@ public class ShiroConfig {
     }
 
     /**
-     *  创建 realm 对象 ，需要自定义 :1
+     * 创建 realm 对象 ，需要自定义 :1
      */
     @Bean
-    public UserRealm userRealm(){
+    public UserRealm userRealm() {
         return new UserRealm();
     }
 
     /**
      * 创建整合shiroDialect: 用来整合shiro thymeleaf
+     *
      * @return
      */
     @Bean
-    public ShiroDialect getShiroDialect(){
+    public ShiroDialect getShiroDialect() {
         return new ShiroDialect();
     }
 

@@ -20,11 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserRealm extends AuthorizingRealm {
 
 
-
     @Autowired
     private UserService userService;
+
     /**
      * 授权
+     *
      * @param principals
      * @return
      */
@@ -44,7 +45,7 @@ public class UserRealm extends AuthorizingRealm {
         User currentUser = (User) subject.getPrincipal();
 
         //设置当前用户的权限
-        if (null!=currentUser.getPerms() && currentUser.getPerms()!=""){
+        if (null != currentUser.getPerms() && currentUser.getPerms() != "") {
             info.addStringPermission(currentUser.getPerms());
         }
         return info;
@@ -52,6 +53,7 @@ public class UserRealm extends AuthorizingRealm {
 
     /**
      * 认证
+     *
      * @param token
      * @return
      * @throws AuthenticationException
@@ -70,11 +72,11 @@ public class UserRealm extends AuthorizingRealm {
         User userInfo = userService.queryUserByName(userToken.getUsername());
 
         //如果没有这个人
-        if (null == userInfo){
+        if (null == userInfo) {
             return null;
         }
 
         //密码认证shiro做
-        return new SimpleAuthenticationInfo(userInfo,userInfo.getPassword(),"");
+        return new SimpleAuthenticationInfo(userInfo, userInfo.getPassword(), "");
     }
 }

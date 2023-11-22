@@ -33,6 +33,7 @@ public interface StudentMapper {
 
     /**
      * 查询这个openId下有没有用户对象
+     *
      * @param openid
      * @return
      */
@@ -40,6 +41,7 @@ public interface StudentMapper {
 
     /**
      * 根据openId查询用户信息
+     *
      * @param openid
      * @return
      */

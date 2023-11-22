@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * student
- * @author 
+ *
+ * @author
  */
 public class Student implements Serializable {
     private Integer id;
@@ -136,14 +137,14 @@ public class Student implements Serializable {
         }
         Student other = (Student) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getOpenid() == null ? other.getOpenid() == null : this.getOpenid().equals(other.getOpenid()))
-            && (this.getNickName() == null ? other.getNickName() == null : this.getNickName().equals(other.getNickName()))
-            && (this.getGender() == null ? other.getGender() == null : this.getGender().equals(other.getGender()))
-            && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
-            && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
-            && (this.getCountry() == null ? other.getCountry() == null : this.getCountry().equals(other.getCountry()))
-            && (this.getAvatarurl() == null ? other.getAvatarurl() == null : this.getAvatarurl().equals(other.getAvatarurl()))
-            && (this.getUnionid() == null ? other.getUnionid() == null : this.getUnionid().equals(other.getUnionid()));
+                && (this.getOpenid() == null ? other.getOpenid() == null : this.getOpenid().equals(other.getOpenid()))
+                && (this.getNickName() == null ? other.getNickName() == null : this.getNickName().equals(other.getNickName()))
+                && (this.getGender() == null ? other.getGender() == null : this.getGender().equals(other.getGender()))
+                && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
+                && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
+                && (this.getCountry() == null ? other.getCountry() == null : this.getCountry().equals(other.getCountry()))
+                && (this.getAvatarurl() == null ? other.getAvatarurl() == null : this.getAvatarurl().equals(other.getAvatarurl()))
+                && (this.getUnionid() == null ? other.getUnionid() == null : this.getUnionid().equals(other.getUnionid()));
     }
 
     @Override

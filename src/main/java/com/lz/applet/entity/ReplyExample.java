@@ -866,6 +866,7 @@ public class ReplyExample {
     }
 
     /**
+     *
      */
     public static class Criteria extends GeneratedCriteria {
 

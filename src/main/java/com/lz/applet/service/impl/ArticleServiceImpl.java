@@ -34,18 +34,20 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 根据栏目id查询文章信息
+     *
      * @param columnId 传入的目录ID
      * @return
      */
     @Override
-    public List<Article> selectByColumnId(int columnId,int pageNum,int pageSize) {
-       PageHelper.startPage(pageNum,pageSize);
-       return articleMapper.selectByColumnId(columnId);
+    public List<Article> selectByColumnId(int columnId, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return articleMapper.selectByColumnId(columnId);
 
     }
 
     /**
      * 后台查询所有的文章信息
+     *
      * @return
      */
     @Override
@@ -74,6 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 根据ID删除文章信息
+     *
      * @param articleId 传入的ID
      * @return
      */
@@ -84,9 +87,9 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = articleMapper.selectByPrimaryKey(articleId);
         String articleImg = article.getImgs();
         //传入参数进行fast文件删除
-        boolean isOk = FastDfsUtils.deleteFile(articleImg, fastPath,fastFileStorageClient);
+        boolean isOk = FastDfsUtils.deleteFile(articleImg, fastPath, fastFileStorageClient);
         //判断是否成功，如果成功删除fastDfs的文件就进行后续的数据删除
-        if (isOk){
+        if (isOk) {
             try {
                 //根据id删除
                 articleMapper.deleteByPrimaryKey(articleId);
@@ -100,6 +103,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 删除视频信息
+     *
      * @param videoId
      * @return
      */
@@ -112,10 +116,10 @@ public class ArticleServiceImpl implements ArticleService {
         //获取到图片路径
         String img = article.getImgs();
         boolean isOk = true;
-        if (img!=null && img!=""){
-             isOk = FastDfsUtils.deleteFastFile(img, fastFileStorageClient);
+        if (img != null && img != "") {
+            isOk = FastDfsUtils.deleteFastFile(img, fastFileStorageClient);
         }
-        if (isOk){
+        if (isOk) {
             int i = articleMapper.deleteByPrimaryKey(videoId);
             return i;
         }
@@ -124,6 +128,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 查询文章信息
+     *
      * @param articleId 文章ID
      * @return
      */
@@ -135,19 +140,21 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 分页查询所有的推荐信息
+     *
      * @param columnId 栏目ID
-     * @param pageNum 从num页开始
+     * @param pageNum  从num页开始
      * @param pageSize 每页展示size条
      * @return
      */
     @Override
-    public List<Article> selectByRecommend(int columnId,int pageNum,int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+    public List<Article> selectByRecommend(int columnId, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return articleMapper.selectByRecommend(columnId);
     }
 
     /**
      * 获取文章的总数量，用于分页
+     *
      * @return
      */
     @Override
@@ -157,20 +164,22 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 查询文章视频集合根据栏目ID进行查询
+     *
      * @param columnId 栏目Id
-     * @param pageNum 从num页开始查询
+     * @param pageNum  从num页开始查询
      * @param pageSize 每页展示size条数据
      * @return
      */
     @Override
     public List<Article> selectArticleVideoListByColumnId(int columnId, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         return articleMapper.selectByColumnId(columnId);
     }
 
     /**
      * 查询所有的视频类型总数
-     * @param columnId  视频类ID
+     *
+     * @param columnId 视频类ID
      * @return
      */
     @Override
@@ -186,13 +195,13 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<Article> backstageArticlePaging(int columnId, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         return articleMapper.backstageSelectAll(columnId);
     }
 
     @Override
     public List<Article> backstageGetVideoListPaging(int columnId, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<Article> articleList = articleMapper.backstageSelectAll(columnId);
         return articleList;
     }

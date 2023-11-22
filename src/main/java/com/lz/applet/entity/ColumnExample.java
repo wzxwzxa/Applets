@@ -256,6 +256,7 @@ public class ColumnExample {
     }
 
     /**
+     *
      */
     public static class Criteria extends GeneratedCriteria {
 

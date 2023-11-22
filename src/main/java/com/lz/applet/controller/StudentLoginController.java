@@ -44,58 +44,59 @@ public class StudentLoginController {
 
     /**
      * 小程序端的用户登录
+     *
      * @param encryptedData
      * @param iv
      * @param code
      * @return
      */
-    @RequestMapping(value = "onLogin",method = RequestMethod.POST)
+    @RequestMapping(value = "onLogin", method = RequestMethod.POST)
     @ResponseBody
-    public ResultUtil onLogin(String encryptedData, String iv, String code){
+    public ResultUtil onLogin(String encryptedData, String iv, String code) {
 
-       return studentService.onLogin(encryptedData,iv,code);
+        return studentService.onLogin(encryptedData, iv, code);
 
     }
 
     /**
      * 小程序授权登录
-     * @param code 临时登录凭证
-     * @param rawData 用户非铭感信息
+     *
+     * @param code      临时登录凭证
+     * @param rawData   用户非铭感信息
      * @param signature 签名
-     * //@param encryptedData 用户敏感信息
-     * //@param iv 解密算法的向量
+     *                  //@param encryptedData 用户敏感信息
+     *                  //@param iv 解密算法的向量
+     * @return
      * @RequestParam(value = "encryptedData",required = false) String encryptedData,
      * @RequestParam(value = "iv",required = false) String iv
-     *
-     *     @RequestParam(value = "rawData",required = false) String rawData,
-     *     @RequestParam(value = "signature",required = false) String signature
-     * @return
+     * @RequestParam(value = "rawData",required = false) String rawData,
+     * @RequestParam(value = "signature",required = false) String signature
      */
-    @RequestMapping(value = "studentLogin",method = RequestMethod.POST)
+    @RequestMapping(value = "studentLogin", method = RequestMethod.POST)
     @ResponseBody
-    public ResultUtil studentLogin(String code,String rawData,String signature){
+    public ResultUtil studentLogin(String code, String rawData, String signature) {
         try {
-            if (rawData==null){
-                return new ResultUtil(500,"用户信息不能为空");
+            if (rawData == null) {
+                return new ResultUtil(500, "用户信息不能为空");
             }
             System.out.println(code);
-            String apiUrl="https://api.weixin.qq.com/sns/jscode2session?appid="+appId+"&secret="+appSecret+"&js_code="+code+"&grant_type="+grantType;
+            String apiUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appId + "&secret=" + appSecret + "&js_code=" + code + "&grant_type=" + grantType;
             String responseBody = HttpClientUtil.doGet(apiUrl);
             JSONObject jsonObject = JSON.parseObject(responseBody);
             String openid = jsonObject.getString("openid");
-            System.out.println("openId"+openid);
+            System.out.println("openId" + openid);
             String session_key = jsonObject.getString("session_key");
-            System.out.println("sessionKey"+session_key);
+            System.out.println("sessionKey" + session_key);
 
             //将用户非敏感信息获取到转换为json对象
             JSONObject rawDataJson = JSON.parseObject(rawData);
 
-            System.out.println("用户信息rawDate"+rawData);
-            System.out.println("用户信息rawDateJson"+rawDataJson);
-            System.out.println("用户昵称"+rawDataJson.getString("nickName"));
+            System.out.println("用户信息rawDate" + rawData);
+            System.out.println("用户信息rawDateJson" + rawDataJson);
+            System.out.println("用户昵称" + rawDataJson.getString("nickName"));
 
             //签名
-            System.out.println("签名"+signature);
+            System.out.println("签名" + signature);
 
             //请求微信客户端封装的方法并返回一个jsonObject
             //JSONObject sessionKeyOrOpenId = UrlUtil.getSessionKeyOrOpenId(code, appId, appSecret);
@@ -112,14 +113,13 @@ public class StudentLoginController {
             //判断查询的用户是否为空，如果等于空的话就需要将用户信息入库保存起来
 
 
-
-            if (null==student){
-                String nickName = rawDataJson.getString( "nickName" );
-                String avatarUrl = rawDataJson.getString( "avatarUrl" );
-                String gender  = rawDataJson.getString( "gender" );
-                String city = rawDataJson.getString( "city" );
-                String country = rawDataJson.getString( "country" );
-                String province = rawDataJson.getString( "province" );
+            if (null == student) {
+                String nickName = rawDataJson.getString("nickName");
+                String avatarUrl = rawDataJson.getString("avatarUrl");
+                String gender = rawDataJson.getString("gender");
+                String city = rawDataJson.getString("city");
+                String country = rawDataJson.getString("country");
+                String province = rawDataJson.getString("province");
                 //给对象赋值
                 student = new Student();
                 student.setOpenid(openid);
@@ -132,13 +132,13 @@ public class StudentLoginController {
                 //将用户信息添加到数据库
                 System.out.println(student);
                 studentService.insert(student);
-            }else {
+            } else {
                 log.info("登录失败");
             }
-            return new ResultUtil(200,"登录成功",openid);
+            return new ResultUtil(200, "登录成功", openid);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResultUtil(500,"请求失败",e.getMessage());
+            return new ResultUtil(500, "请求失败", e.getMessage());
         }
     }
 }

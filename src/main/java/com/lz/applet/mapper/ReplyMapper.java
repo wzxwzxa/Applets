@@ -31,6 +31,7 @@ public interface ReplyMapper {
 
     /**
      * 根据留言的id删除留言下的所有回复
+     *
      * @param commentId
      * @return
      */
@@ -38,6 +39,7 @@ public interface ReplyMapper {
 
     /**
      * 根据留言评论id查询下面的所有回复
+     *
      * @param getcId
      * @return
      */

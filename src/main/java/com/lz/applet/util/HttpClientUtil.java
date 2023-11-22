@@ -138,7 +138,7 @@ public class HttpClientUtil {
         return resultString;
     }
 
-    public static String send(String url, Map<String,String> map,String encoding) throws ClientProtocolException, IOException {
+    public static String send(String url, Map<String, String> map, String encoding) throws ClientProtocolException, IOException {
         String body = "";
 
         //创建httpclient对象
@@ -148,7 +148,7 @@ public class HttpClientUtil {
 
         //装填参数
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-        if(map!=null){
+        if (map != null) {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
@@ -156,8 +156,8 @@ public class HttpClientUtil {
         //设置参数到请求对象中
         httpPost.setEntity(new UrlEncodedFormEntity(nvps, encoding));
 
-        System.out.println("请求地址："+url);
-        System.out.println("请求参数："+nvps.toString());
+        System.out.println("请求地址：" + url);
+        System.out.println("请求参数：" + nvps.toString());
 
         //设置header信息
         //指定报文头【Content-type】、【User-Agent】

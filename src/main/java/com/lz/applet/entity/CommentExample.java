@@ -656,6 +656,7 @@ public class CommentExample {
     }
 
     /**
+     *
      */
     public static class Criteria extends GeneratedCriteria {
 

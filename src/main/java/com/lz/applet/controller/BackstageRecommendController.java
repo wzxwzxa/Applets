@@ -29,47 +29,49 @@ public class BackstageRecommendController {
 
     /**
      * 查询所有的推荐类信息
+     *
      * @param columnId
      * @param request
      * @return
      */
     @RequestMapping("getRecommendList")
-    public String getRecommendList(int columnId, HttpServletRequest request){
+    public String getRecommendList(int columnId, HttpServletRequest request) {
         try {
             List<Article> recommendList = recommendService.getRecommendList(columnId);
-            request.setAttribute("recommendList",recommendList);
+            request.setAttribute("recommendList", recommendList);
             return "recommend";
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("后台获取推荐类文章失败"+e.getMessage());
+            log.error("后台获取推荐类文章失败" + e.getMessage());
             return "error";
         }
     }
 
     /**
      * 查询推荐类的文章和视频信息
+     *
      * @param columnId 推荐类id
      * @param pageNum  从那页开始进行查询
-     * @param pageSize  一页展示的数据条数
+     * @param pageSize 一页展示的数据条数
      * @return
      */
     @RequestMapping("getRecommendListPaging")
     @ResponseBody
-    public ResultUtil getRecommendListPaging(int columnId,int pageNum,int pageSize){
+    public ResultUtil getRecommendListPaging(int columnId, int pageNum, int pageSize) {
         try {
             //查询所有的文章信息分页
-            List<Article> articleList = recommendService.getRecommendListPaging(columnId,pageNum,pageSize);
+            List<Article> articleList = recommendService.getRecommendListPaging(columnId, pageNum, pageSize);
             //对显示图片部分切分只显示一张图片
             List<Article> articlesList = ProcessRequestUtils.processImg(articleList);
             int count = recommendService.selectCount(columnId);
             HashMap<Object, Object> map = new HashMap<>(16);
-            map.put("data",articlesList);
-            map.put("count",count);
-            return new ResultUtil(200,"请求成功",map);
+            map.put("data", articlesList);
+            map.put("count", count);
+            return new ResultUtil(200, "请求成功", map);
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("文章/视频推荐类分页查询失败"+e.getMessage());
-            return new ResultUtil(500,"请求失败");
+            log.error("文章/视频推荐类分页查询失败" + e.getMessage());
+            return new ResultUtil(500, "请求失败");
         }
     }
 
@@ -78,17 +80,17 @@ public class BackstageRecommendController {
      * deleteRecommend?recommendId="+recommendId
      */
     @RequestMapping("deleteRecommend")
-    public String deleteRecommend(int recommendId){
+    public String deleteRecommend(int recommendId) {
         try {
             int result = recommendService.deleteRecommendById(recommendId);
-            if (result>0){
+            if (result > 0) {
                 return "forward:/getRecommendList?columnId=4001";
-            }else {
+            } else {
                 log.error("后台推荐类删除文章失败");
                 return "error";
             }
         } catch (Exception e) {
-            log.error("后台推荐类删除文章失败"+e.getMessage());
+            log.error("后台推荐类删除文章失败" + e.getMessage());
             return "error";
         }
     }

@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * column
- * @author 
+ *
+ * @author
  */
 public class Column implements Serializable {
     private Integer id;
@@ -45,7 +46,7 @@ public class Column implements Serializable {
         }
         Column other = (Column) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()));
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()));
     }
 
     @Override

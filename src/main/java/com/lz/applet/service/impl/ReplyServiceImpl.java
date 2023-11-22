@@ -27,9 +27,10 @@ public class ReplyServiceImpl implements ReplyService {
 
     /**
      * 添加回复
-     * @param openId 回复这的唯一ID用于查看用户信息
-     * @param rContent 回复的内容
-     * @param rOtherid 回复用户的ID 回复所对应留言的id
+     *
+     * @param openId    回复这的唯一ID用于查看用户信息
+     * @param rContent  回复的内容
+     * @param rOtherid  回复用户的ID 回复所对应留言的id
      * @param articleId 文章ID
      * @return
      */
@@ -37,7 +38,7 @@ public class ReplyServiceImpl implements ReplyService {
     public boolean addReply(String openId, String rContent, int rOtherid, int articleId) {
         //先根据学员的openId查询出学员信息
         Student student = studentMapper.selectByOpenId(openId);
-        if (null==student){
+        if (null == student) {
             return false;
         }
         Reply reply = addReply(student, rContent, rOtherid);
@@ -51,15 +52,16 @@ public class ReplyServiceImpl implements ReplyService {
         reply.setrAvatarUrl(student.getAvatarurl());
         //将留言的回复信息存入到数据库
         int insert = replyMapper.insert(reply);
-        if (insert>0){
+        if (insert > 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     /**
      * 根据留言id查询回复
+     *
      * @param commentId 留言id
      * @return
      */
@@ -71,6 +73,7 @@ public class ReplyServiceImpl implements ReplyService {
 
     /**
      * 删除回复消息根据ID
+     *
      * @param replyId 回复消息Id
      * @return
      */
@@ -82,7 +85,8 @@ public class ReplyServiceImpl implements ReplyService {
 
     /**
      * 添加留言回复
-     * @param openId 用户的唯一标识
+     *
+     * @param openId   用户的唯一标识
      * @param rContent 用户的回复信息
      * @param rOtherid 回复所对应的留言ID
      * @return
@@ -92,7 +96,7 @@ public class ReplyServiceImpl implements ReplyService {
         //查询用户的信息
         Student student = studentMapper.selectByOpenId(openId);
 
-        if (null==student){
+        if (null == student) {
             return -1;
         }
 
@@ -101,7 +105,7 @@ public class ReplyServiceImpl implements ReplyService {
         return replyMapper.insert(reply);
     }
 
-    public static Reply addReply(Student student,String rContent,int rOtherid){
+    public static Reply addReply(Student student, String rContent, int rOtherid) {
 
         //将学员的信息放入回复信息中
         Reply reply = new Reply();

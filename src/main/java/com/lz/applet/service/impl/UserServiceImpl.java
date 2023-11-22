@@ -20,13 +20,14 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 判断用户登录信息是否正确
+     *
      * @param user
      * @return
      */
     @Override
     public Boolean login(User user) {
         User result = userMapper.selectUserPassword(user.getUsername());
-        if (null != result && result.getPassword().equals(user.getPassword())){
+        if (null != result && result.getPassword().equals(user.getPassword())) {
             return true;
         }
         return false;
@@ -34,16 +35,17 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 查询所有用户
+     *
      * @return 返回所有的用户信息
      */
     @Override
     public List<User> selectAll() {
         List<User> userList = userMapper.selectAll();
         for (User user : userList) {
-            if (null!=user.getPerms() && user.getPerms()!=""){
-                if (user.getPerms().equals("user:admin")){
+            if (null != user.getPerms() && user.getPerms() != "") {
+                if (user.getPerms().equals("user:admin")) {
                     user.setPerms("超级管理员");
-                }else {
+                } else {
                     user.setPerms("管理员");
                 }
             }
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 删除管理员
+     *
      * @param userId 管理员ID
      * @return
      */
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserService {
     public Boolean delete(int userId) {
         int i = userMapper.deleteByPrimaryKey(userId);
         System.out.println(i);
-        if (i!=0){
+        if (i != 0) {
             return true;
         }
         return false;
@@ -77,6 +80,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 加入新的管理员
+     *
      * @param user
      * @return
      */
@@ -85,9 +89,9 @@ public class UserServiceImpl implements UserService {
         //查询这个用户是否已经注册
         User user1 = userMapper.selectUserPassword(user.getUsername());
         //如果已经存在就返回false
-        if (null!=user1){
+        if (null != user1) {
             return false;
-        }else {
+        } else {
             //添加
             int insert = userMapper.insert(user);
             System.out.println(insert);
@@ -98,14 +102,15 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 修改用户信息
+     *
      * @param user
      */
     @Override
     public Boolean updateUser(User user) {
         int i = userMapper.updateByPrimaryKeySelective(user);
-        if (i>0){
+        if (i > 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

@@ -39,6 +39,7 @@ public interface ArticleMapper {
 
     /**
      * 查询所有的文章
+     *
      * @param columnId 查询的类别id
      * @return
      */
@@ -46,6 +47,7 @@ public interface ArticleMapper {
 
     /**
      * 根据栏目Id查询文章列表
+     *
      * @param columnId 栏目ID
      * @return
      */
@@ -53,6 +55,7 @@ public interface ArticleMapper {
 
     /**
      * 根据推荐0/1查询推荐文章或视频信息
+     *
      * @param columnId 栏目ID
      * @return
      */
@@ -60,6 +63,7 @@ public interface ArticleMapper {
 
     /**
      * 查询文章总数
+     *
      * @param columnId 栏目对应的文章类ID
      * @return
      */
@@ -67,6 +71,7 @@ public interface ArticleMapper {
 
     /**
      * 根据栏目ID查询推荐信息
+     *
      * @param columnId
      * @return
      */
@@ -74,6 +79,7 @@ public interface ArticleMapper {
 
     /**
      * 根据讲师名称查询该讲师对应的所有文章和视频信息
+     *
      * @param lecturerName
      * @return
      */
@@ -81,6 +87,7 @@ public interface ArticleMapper {
 
     /**
      * 跟导师的名称获取这个导师对应的文章视频总数
+     *
      * @param lecturerName
      * @return
      */

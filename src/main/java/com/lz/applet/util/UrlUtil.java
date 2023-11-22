@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class UrlUtil {
 
-    private static String sendPost(String url, Map<String, ?> paramMap){
+    private static String sendPost(String url, Map<String, ?> paramMap) {
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -29,7 +29,7 @@ public class UrlUtil {
         String param = "";
         Iterator<String> it = paramMap.keySet().iterator();
 
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             String key = it.next();
             param += key + "=" + paramMap.get(key) + "&";
         }
@@ -62,33 +62,32 @@ public class UrlUtil {
             System.out.println(e.getMessage());
         }
         //使用finally块来关闭输出流、输入流
-        finally{
-            try{
-                if(out!=null){
+        finally {
+            try {
+                if (out != null) {
                     out.close();
                 }
-                if(in!=null){
+                if (in != null) {
                     in.close();
                 }
-            }
-            catch(IOException ex){
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
         return result;
     }
 
-    public static JSONObject getSessionKeyOrOpenId(String code,String appId,String appSecret){
+    public static JSONObject getSessionKeyOrOpenId(String code, String appId, String appSecret) {
 
         String requestUrl = "https://api.weixin.qq.com/sns/jscode2session";
-        Map<String,String> requestUrlParam = new HashMap<String, String>(16);
+        Map<String, String> requestUrlParam = new HashMap<String, String>(16);
         //小程序appId
-        requestUrlParam.put( "appid",appId );
-        requestUrlParam.put( "secret",appSecret );
+        requestUrlParam.put("appid", appId);
+        requestUrlParam.put("secret", appSecret);
         //小程序端返回的codeR,.
-        requestUrlParam.put( "js_code",code );
+        requestUrlParam.put("js_code", code);
         //默认参数authorization_code
-        requestUrlParam.put( "grant_type","authorization_code");
+        requestUrlParam.put("grant_type", "authorization_code");
 
         //发送POST请求调取微信接口获取openId用户唯一标识
         JSONObject jsonObject = JSON.parseObject(sendPost(requestUrl, requestUrlParam));

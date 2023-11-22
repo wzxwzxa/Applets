@@ -27,35 +27,39 @@ public class BackstageUserLoginController {
     @Autowired
     private UserService userService;
 
-    /**goLogin","/
+    /**
+     * goLogin","/
      * 用户进入登录界面
+     *
      * @return
      */
-    @RequestMapping(value = {"/","goLogin"})
-    public String goLogin(){
+    @RequestMapping(value = {"/", "goLogin"})
+    public String goLogin() {
         return "login";
     }
+
     /**
      * 用户输入登录信息进行登录校验
+     *
      * @param user
      * @return
      */
     @RequestMapping("login")
-    public String UserLogin(User user, Model model){
+    public String UserLogin(User user, Model model) {
         //获取当前的用户
         Subject subject = SecurityUtils.getSubject();
         //封装用户的登录数据
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         try {
             //执行登录方法，如果没有异常就说明成功了
             subject.login(token);
-            model.addAttribute("username",user.getUsername());
+            model.addAttribute("username", user.getUsername());
             return "myIndex";
         } catch (UnknownAccountException e) {
-            model.addAttribute("msg","用户名错误");
+            model.addAttribute("msg", "用户名错误");
             return "login";
-        } catch (IncorrectCredentialsException e){
-            model.addAttribute("msg","密码错误");
+        } catch (IncorrectCredentialsException e) {
+            model.addAttribute("msg", "密码错误");
             return "login";
         }
     }
@@ -63,31 +67,33 @@ public class BackstageUserLoginController {
     /**
      * 管理员管理
      * 展示所有的管理员信息
+     *
      * @return
      */
     @RequestMapping("userManagement")
-    public String userManagement(HttpServletRequest request){
+    public String userManagement(HttpServletRequest request) {
         //查询所有的用户信息
         List<User> userList = userService.selectAll();
         for (User user : userList) {
             System.out.println(user);
         }
-        request.setAttribute("userList",userList);
+        request.setAttribute("userList", userList);
         return "admin";
     }
 
     /**
      * 添加管理员
+     *
      * @param user 填写的用户信息
      * @return
      */
     @RequestMapping("addUser")
-    public String addUser(User user){
+    public String addUser(User user) {
         try {
             Boolean aBoolean = userService.addUser(user);
-            if (aBoolean){
+            if (aBoolean) {
                 return "forward:/userManagement";
-            }else {
+            } else {
                 //用户已存在
                 return "error";
             }
@@ -98,30 +104,31 @@ public class BackstageUserLoginController {
 
     /**
      * 删除用户
+     *
      * @param userId
      * @return
      */
     @RequestMapping("deleteUser")
-    public String deleteUser(int userId){
+    public String deleteUser(int userId) {
         System.out.println(userId);
         Boolean result = userService.delete(userId);
-        if (result){
-           return "forward:/userManagement";
+        if (result) {
+            return "forward:/userManagement";
         }
         return "error";
     }
 
     @RequestMapping("updateUser")
-    public String updateUser(User user){
+    public String updateUser(User user) {
         Boolean result = userService.updateUser(user);
-        if (result){
+        if (result) {
             return "forward:/userManagement";
         }
         return "error";
     }
 
     @RequestMapping("logOut")
-    public String logOut(){
+    public String logOut() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return "login";

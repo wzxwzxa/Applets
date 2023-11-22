@@ -36,12 +36,14 @@ public interface LecturerMapper {
 
     /**
      * 查询所有的讲师的总数
+     *
      * @return
      */
     int count();
 
     /**
      * 根据讲师名称查询对应的文章视频信息
+     *
      * @param lecturerName
      * @return
      */

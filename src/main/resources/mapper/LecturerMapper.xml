@@ -1,237 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lz.applet.mapper.LecturerMapper">
-  <resultMap id="BaseResultMap" type="com.lz.applet.entity.Lecturer">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="lecturer_name" jdbcType="VARCHAR" property="lecturerName" />
-    <result column="img" jdbcType="VARCHAR" property="img" />
-    <result column="lecturer_introduce" jdbcType="VARCHAR" property="lecturerIntroduce" />
-    <result column="working years" jdbcType="VARCHAR" property="workingYears" />
-    <result column="lecturer_post" jdbcType="VARCHAR" property="lecturerPost" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.lz.applet.entity.Lecturer">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="lecturer_name" jdbcType="VARCHAR" property="lecturerName"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="lecturer_introduce" jdbcType="VARCHAR" property="lecturerIntroduce"/>
+        <result column="working years" jdbcType="VARCHAR" property="workingYears"/>
+        <result column="lecturer_post" jdbcType="VARCHAR" property="lecturerPost"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, lecturer_name, img, lecturer_introduce, `working years`, lecturer_post
+    </sql>
+    <select id="selectByExample" parameterType="com.lz.applet.entity.LecturerExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    id, lecturer_name, img, lecturer_introduce, `working years`, lecturer_post
-  </sql>
-  <select id="selectByExample" parameterType="com.lz.applet.entity.LecturerExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from lecturer
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limit != null">
-      <if test="offset != null">
-        limit ${offset}, ${limit}
-      </if>
-      <if test="offset == null">
-        limit ${limit}
-      </if>
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from lecturer
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from lecturer
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.lz.applet.entity.LecturerExample">
-    delete from lecturer
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lz.applet.entity.Lecturer" useGeneratedKeys="true">
-    insert into lecturer (lecturer_name, img, lecturer_introduce, 
-      `working years`, lecturer_post)
-    values (#{lecturerName,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{lecturerIntroduce,jdbcType=VARCHAR}, 
-      #{workingYears,jdbcType=VARCHAR}, #{lecturerPost,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lz.applet.entity.Lecturer" useGeneratedKeys="true">
-    insert into lecturer
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="lecturerName != null">
-        lecturer_name,
-      </if>
-      <if test="img != null">
-        img,
-      </if>
-      <if test="lecturerIntroduce != null">
-        lecturer_introduce,
-      </if>
-      <if test="workingYears != null">
-        `working years`,
-      </if>
-      <if test="lecturerPost != null">
-        lecturer_post,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="lecturerName != null">
-        #{lecturerName,jdbcType=VARCHAR},
-      </if>
-      <if test="img != null">
-        #{img,jdbcType=VARCHAR},
-      </if>
-      <if test="lecturerIntroduce != null">
-        #{lecturerIntroduce,jdbcType=VARCHAR},
-      </if>
-      <if test="workingYears != null">
-        #{workingYears,jdbcType=VARCHAR},
-      </if>
-      <if test="lecturerPost != null">
-        #{lecturerPost,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.lz.applet.entity.LecturerExample" resultType="java.lang.Long">
-    select count(*) from lecturer
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <select id="selectAll" resultType="com.lz.applet.entity.Lecturer">
-    select * from lecturer
-  </select>
-  <select id="count" resultType="java.lang.Integer">
-    select count(*) from lecturer
-  </select>
-  <select id="getByLecturerName" resultType="com.lz.applet.entity.Lecturer">
-    select * from lecturer where lecturer_name = #{lecturerName}
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update lecturer
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.lecturerName != null">
+        <include refid="Base_Column_List"/>
+        from lecturer
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from lecturer
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from lecturer
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.lz.applet.entity.LecturerExample">
+        delete from lecturer
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lz.applet.entity.Lecturer"
+            useGeneratedKeys="true">
+        insert into lecturer (lecturer_name, img, lecturer_introduce,
+        `working years`, lecturer_post)
+        values (#{lecturerName,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{lecturerIntroduce,jdbcType=VARCHAR},
+        #{workingYears,jdbcType=VARCHAR}, #{lecturerPost,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lz.applet.entity.Lecturer"
+            useGeneratedKeys="true">
+        insert into lecturer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lecturerName != null">
+                lecturer_name,
+            </if>
+            <if test="img != null">
+                img,
+            </if>
+            <if test="lecturerIntroduce != null">
+                lecturer_introduce,
+            </if>
+            <if test="workingYears != null">
+                `working years`,
+            </if>
+            <if test="lecturerPost != null">
+                lecturer_post,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lecturerName != null">
+                #{lecturerName,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="lecturerIntroduce != null">
+                #{lecturerIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="workingYears != null">
+                #{workingYears,jdbcType=VARCHAR},
+            </if>
+            <if test="lecturerPost != null">
+                #{lecturerPost,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.lz.applet.entity.LecturerExample" resultType="java.lang.Long">
+        select count(*) from lecturer
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="selectAll" resultType="com.lz.applet.entity.Lecturer">
+        select * from lecturer
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from lecturer
+    </select>
+    <select id="getByLecturerName" resultType="com.lz.applet.entity.Lecturer">
+        select * from lecturer where lecturer_name = #{lecturerName}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update lecturer
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.lecturerName != null">
+                lecturer_name = #{record.lecturerName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.img != null">
+                img = #{record.img,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lecturerIntroduce != null">
+                lecturer_introduce = #{record.lecturerIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="record.workingYears != null">
+                `working years` = #{record.workingYears,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lecturerPost != null">
+                lecturer_post = #{record.lecturerPost,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update lecturer
+        set id = #{record.id,jdbcType=INTEGER},
         lecturer_name = #{record.lecturerName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.img != null">
         img = #{record.img,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lecturerIntroduce != null">
         lecturer_introduce = #{record.lecturerIntroduce,jdbcType=VARCHAR},
-      </if>
-      <if test="record.workingYears != null">
         `working years` = #{record.workingYears,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lecturerPost != null">
-        lecturer_post = #{record.lecturerPost,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update lecturer
-    set id = #{record.id,jdbcType=INTEGER},
-      lecturer_name = #{record.lecturerName,jdbcType=VARCHAR},
-      img = #{record.img,jdbcType=VARCHAR},
-      lecturer_introduce = #{record.lecturerIntroduce,jdbcType=VARCHAR},
-      `working years` = #{record.workingYears,jdbcType=VARCHAR},
-      lecturer_post = #{record.lecturerPost,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lz.applet.entity.Lecturer">
-    update lecturer
-    <set>
-      <if test="lecturerName != null">
-        lecturer_name = #{lecturerName,jdbcType=VARCHAR},
-      </if>
-      <if test="img != null">
+        lecturer_post = #{record.lecturerPost,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lz.applet.entity.Lecturer">
+        update lecturer
+        <set>
+            <if test="lecturerName != null">
+                lecturer_name = #{lecturerName,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                img = #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="lecturerIntroduce != null">
+                lecturer_introduce = #{lecturerIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="workingYears != null">
+                `working years` = #{workingYears,jdbcType=VARCHAR},
+            </if>
+            <if test="lecturerPost != null">
+                lecturer_post = #{lecturerPost,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lz.applet.entity.Lecturer">
+        update lecturer
+        set lecturer_name = #{lecturerName,jdbcType=VARCHAR},
         img = #{img,jdbcType=VARCHAR},
-      </if>
-      <if test="lecturerIntroduce != null">
         lecturer_introduce = #{lecturerIntroduce,jdbcType=VARCHAR},
-      </if>
-      <if test="workingYears != null">
         `working years` = #{workingYears,jdbcType=VARCHAR},
-      </if>
-      <if test="lecturerPost != null">
-        lecturer_post = #{lecturerPost,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.lz.applet.entity.Lecturer">
-    update lecturer
-    set lecturer_name = #{lecturerName,jdbcType=VARCHAR},
-      img = #{img,jdbcType=VARCHAR},
-      lecturer_introduce = #{lecturerIntroduce,jdbcType=VARCHAR},
-      `working years` = #{workingYears,jdbcType=VARCHAR},
-      lecturer_post = #{lecturerPost,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        lecturer_post = #{lecturerPost,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

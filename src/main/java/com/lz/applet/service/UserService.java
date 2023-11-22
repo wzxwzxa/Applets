@@ -12,6 +12,7 @@ public interface UserService {
 
     /**
      * 根据用户输入的登录密码判断是否登录
+     *
      * @param user
      * @return
      */
@@ -19,12 +20,14 @@ public interface UserService {
 
     /**
      * 查询所有的用户信息
+     *
      * @return
      */
     List<User> selectAll();
 
     /**
      * 根据传入的id进行删除
+     *
      * @param userId
      * @return
      */
@@ -32,6 +35,7 @@ public interface UserService {
 
     /**
      * 根据传入的ID返回用户信息
+     *
      * @param userId
      * @return
      */
@@ -39,6 +43,7 @@ public interface UserService {
 
     /**
      * 根据传入的用户信息添加管理员
+     *
      * @param user
      * @return
      */
@@ -46,6 +51,7 @@ public interface UserService {
 
     /**
      * 修改管理员信息
+     *
      * @param user
      * @return
      */
@@ -53,6 +59,7 @@ public interface UserService {
 
     /**
      * 根据名字查询是否有这个用户
+     *
      * @param username
      * @return
      */

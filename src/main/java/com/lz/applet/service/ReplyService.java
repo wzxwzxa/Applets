@@ -13,9 +13,10 @@ import java.util.List;
 public interface ReplyService {
     /**
      * 添加留言回复
-     * @param openId 回复这的唯一ID用于查看用户信息
-     * @param rContent 回复的内容
-     * @param rOtherid 回复用户的ID
+     *
+     * @param openId    回复这的唯一ID用于查看用户信息
+     * @param rContent  回复的内容
+     * @param rOtherid  回复用户的ID
      * @param articleId
      * @return
      */
@@ -23,6 +24,7 @@ public interface ReplyService {
 
     /**
      * 根据留言id查询留言下的所有回复
+     *
      * @param commentId 留言id
      * @return
      */
@@ -30,6 +32,7 @@ public interface ReplyService {
 
     /**
      * 删除留言回复
+     *
      * @param replyId 回复消息Id
      * @return
      */
@@ -37,7 +40,8 @@ public interface ReplyService {
 
     /**
      * 添加留言回复信息
-     * @param openId 用户的唯一标识
+     *
+     * @param openId   用户的唯一标识
      * @param rContent 用户的回复信息
      * @param rOtherid 回复所对应的留言ID
      * @return

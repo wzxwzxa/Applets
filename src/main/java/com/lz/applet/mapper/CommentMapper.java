@@ -31,6 +31,7 @@ public interface CommentMapper {
 
     /**
      * 根据文章id查询所有的留言信息
+     *
      * @param articleId 文章id
      * @return
      */
@@ -38,18 +39,21 @@ public interface CommentMapper {
 
     /**
      * 查询所有的留言/评论
+     *
      * @return
      */
     List<Comment> selectAll();
 
     /**
      * 查询留言的总条数
+     *
      * @return
      */
     int count();
 
     /**
      * 小程序端查询所有的留言部分信息
+     *
      * @param state
      * @return
      */
@@ -57,6 +61,7 @@ public interface CommentMapper {
 
     /**
      * 查询所有的留言部分信息的总数
+     *
      * @param state
      * @return
      */
@@ -64,12 +69,14 @@ public interface CommentMapper {
 
     /**
      * 后台查询所有的留言信息和评论信息
+     *
      * @return
      */
     List<Comment> backSelectAll();
 
     /**
      * 查询所有的评论和留言信息
+     *
      * @return
      */
     List<Comment> backGetCommentAll();

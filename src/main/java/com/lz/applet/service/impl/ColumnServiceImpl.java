@@ -20,12 +20,13 @@ public class ColumnServiceImpl implements ColumnService {
 
     /**
      * 查询所有的栏目
+     *
      * @return
      */
     @Override
     public List<Column> selectAll() {
         //查询所有的栏目信息
-       return columnMapper.selectAll();
+        return columnMapper.selectAll();
 
     }
 }

@@ -14,6 +14,7 @@ public interface ColumnService {
 
     /**
      * 查询所有的栏目列表
+     *
      * @return
      */
     List<Column> selectAll();

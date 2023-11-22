@@ -14,6 +14,7 @@ public interface RecommendService {
 
     /**
      * 根据栏目ID查询推荐的文章信息
+     *
      * @param columnId
      * @return
      */
@@ -21,13 +22,14 @@ public interface RecommendService {
 
     /**
      * 删除文章或视频根据ID
-     * @param recommendId
      *
+     * @param recommendId
      */
     int deleteRecommendById(int recommendId);
 
     /**
      * 根据类别id查询推荐类的信息
+     *
      * @param columnId 推荐类id
      * @param pageNum  从那页开始查询数据
      * @param pageSize 每页展示多少条数据
@@ -37,6 +39,7 @@ public interface RecommendService {
 
     /**
      * 根据推荐类id去查询推荐类数据的重量
+     *
      * @param columnId
      * @return
      */

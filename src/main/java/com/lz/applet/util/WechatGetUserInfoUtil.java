@@ -28,7 +28,7 @@ public class WechatGetUserInfoUtil {
     /**
      * 使用log4j的日志框架
      */
-    private static final Logger log= LoggerFactory.getLogger(WechatGetUserInfoUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(WechatGetUserInfoUtil.class);
 
     /**
      * 解密用户敏感数据获取用户信息
@@ -37,7 +37,7 @@ public class WechatGetUserInfoUtil {
      * @param encryptedData 包括敏感数据在内的完整用户信息的加密数据
      * @param iv            加密算法的初始向量
      * @return
-     * */
+     */
     public static JSONObject getUserInfo(String encryptedData, String sessionKey, String iv) {
         // 被加密的数据
         byte[] dataByte = Base64Utils.decode(encryptedData.getBytes());

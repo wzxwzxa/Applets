@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * comment
- * @author 
+ *
+ * @author
  */
 public class Comment implements Serializable {
     /**
@@ -137,13 +138,13 @@ public class Comment implements Serializable {
         }
         Comment other = (Comment) that;
         return (this.getcId() == null ? other.getcId() == null : this.getcId().equals(other.getcId()))
-            && (this.getcUserid() == null ? other.getcUserid() == null : this.getcUserid().equals(other.getcUserid()))
-            && (this.getcName() == null ? other.getcName() == null : this.getcName().equals(other.getcName()))
-            && (this.getcContentid() == null ? other.getcContentid() == null : this.getcContentid().equals(other.getcContentid()))
-            && (this.getcCreatetime() == null ? other.getcCreatetime() == null : this.getcCreatetime().equals(other.getcCreatetime()))
-            && (this.getcContent() == null ? other.getcContent() == null : this.getcContent().equals(other.getcContent()))
-            && (this.getcOtherid() == null ? other.getcOtherid() == null : this.getcOtherid().equals(other.getcOtherid()))
-            && (this.getcState() == null ? other.getcState() == null : this.getcState().equals(other.getcState()));
+                && (this.getcUserid() == null ? other.getcUserid() == null : this.getcUserid().equals(other.getcUserid()))
+                && (this.getcName() == null ? other.getcName() == null : this.getcName().equals(other.getcName()))
+                && (this.getcContentid() == null ? other.getcContentid() == null : this.getcContentid().equals(other.getcContentid()))
+                && (this.getcCreatetime() == null ? other.getcCreatetime() == null : this.getcCreatetime().equals(other.getcCreatetime()))
+                && (this.getcContent() == null ? other.getcContent() == null : this.getcContent().equals(other.getcContent()))
+                && (this.getcOtherid() == null ? other.getcOtherid() == null : this.getcOtherid().equals(other.getcOtherid()))
+                && (this.getcState() == null ? other.getcState() == null : this.getcState().equals(other.getcState()));
     }
 
     @Override

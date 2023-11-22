@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * reply
- * @author 
+ *
+ * @author
  */
 public class Reply implements Serializable {
     /**
@@ -165,16 +166,16 @@ public class Reply implements Serializable {
         }
         Reply other = (Reply) that;
         return (this.getrId() == null ? other.getrId() == null : this.getrId().equals(other.getrId()))
-            && (this.getrUserid() == null ? other.getrUserid() == null : this.getrUserid().equals(other.getrUserid()))
-            && (this.getrName() == null ? other.getrName() == null : this.getrName().equals(other.getrName()))
-            && (this.getrCreatime() == null ? other.getrCreatime() == null : this.getrCreatime().equals(other.getrCreatime()))
-            && (this.getrContent() == null ? other.getrContent() == null : this.getrContent().equals(other.getrContent()))
-            && (this.getrOtherid() == null ? other.getrOtherid() == null : this.getrOtherid().equals(other.getrOtherid()))
-            && (this.getrWords() == null ? other.getrWords() == null : this.getrWords().equals(other.getrWords()))
-            && (this.getrContentid() == null ? other.getrContentid() == null : this.getrContentid().equals(other.getrContentid()))
-            && (this.getrState() == null ? other.getrState() == null : this.getrState().equals(other.getrState()))
-            && (this.getrRespondent() == null ? other.getrRespondent() == null : this.getrRespondent().equals(other.getrRespondent()))
-            && (this.getrAvatarUrl() == null ? other.getrAvatarUrl() == null : this.getrAvatarUrl().equals(other.getrAvatarUrl()));
+                && (this.getrUserid() == null ? other.getrUserid() == null : this.getrUserid().equals(other.getrUserid()))
+                && (this.getrName() == null ? other.getrName() == null : this.getrName().equals(other.getrName()))
+                && (this.getrCreatime() == null ? other.getrCreatime() == null : this.getrCreatime().equals(other.getrCreatime()))
+                && (this.getrContent() == null ? other.getrContent() == null : this.getrContent().equals(other.getrContent()))
+                && (this.getrOtherid() == null ? other.getrOtherid() == null : this.getrOtherid().equals(other.getrOtherid()))
+                && (this.getrWords() == null ? other.getrWords() == null : this.getrWords().equals(other.getrWords()))
+                && (this.getrContentid() == null ? other.getrContentid() == null : this.getrContentid().equals(other.getrContentid()))
+                && (this.getrState() == null ? other.getrState() == null : this.getrState().equals(other.getrState()))
+                && (this.getrRespondent() == null ? other.getrRespondent() == null : this.getrRespondent().equals(other.getrRespondent()))
+                && (this.getrAvatarUrl() == null ? other.getrAvatarUrl() == null : this.getrAvatarUrl().equals(other.getrAvatarUrl()));
     }
 
     @Override

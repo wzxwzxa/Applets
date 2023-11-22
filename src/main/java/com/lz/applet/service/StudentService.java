@@ -11,6 +11,7 @@ public interface StudentService {
 
     /**
      * 用户登录
+     *
      * @param encryptedData
      * @param iv
      * @param code
@@ -20,6 +21,7 @@ public interface StudentService {
 
     /**
      * 根据用户唯一的openid查询用户是否存在
+     *
      * @param openid
      * @return
      */
@@ -27,6 +29,7 @@ public interface StudentService {
 
     /**
      * 添加用户信息到数据库
+     *
      * @param student
      */
     void insert(Student student);

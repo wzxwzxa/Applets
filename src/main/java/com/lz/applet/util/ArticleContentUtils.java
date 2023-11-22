@@ -15,10 +15,10 @@ import java.util.regex.Pattern;
  */
 public class ArticleContentUtils {
 
-    public static Article articleContentUtil(MultipartFile[] files, Article article,String phoneWidth, HashMap<String,String> hashMap){
+    public static Article articleContentUtil(MultipartFile[] files, Article article, String phoneWidth, HashMap<String, String> hashMap) {
         StringBuffer stringBuffer = new StringBuffer();
         for (MultipartFile multipartFile : files) {
-            if (null!=multipartFile && multipartFile.getSize()!=0){
+            if (null != multipartFile && multipartFile.getSize() != 0) {
                 //获取上传文件的名称
                 String originalFilename = multipartFile.getOriginalFilename();
                 //获取存入fastDfs的路径
@@ -49,16 +49,17 @@ public class ArticleContentUtils {
 
     /**
      * 拼装存入数据库的路径
-     * @param  path        fast文件的访问路径
-     * @param phoneWidth   图片的尺寸
+     *
+     * @param path       fast文件的访问路径
+     * @param phoneWidth 图片的尺寸
      * @return
      */
-    private static String replaceString(String path,String phoneWidth){
+    private static String replaceString(String path, String phoneWidth) {
         String front = "<img src='";
-        String style = "' "+phoneWidth;
+        String style = "' " + phoneWidth;
         String last = ">";
-        String temp = front+path+style+last;
-        System.out.println("拼装后的路径*********"+temp);
+        String temp = front + path + style + last;
+        System.out.println("拼装后的路径*********" + temp);
         return temp;
     }
 
