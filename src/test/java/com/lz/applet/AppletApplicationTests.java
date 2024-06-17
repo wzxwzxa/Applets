@@ -15,6 +15,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.SendCallback;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.common.message.Message;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +52,31 @@ class AppletApplicationTests<aprioriDislodge> {
    @Autowired
    private HisDataService hisDataService;
 
+   String nameSrvAddr = "8.137.18.41:9876";
+
    @Test
-   public void test145(){
-       int a = 10;
-       int b = 20;
-       System.out.println(++a);
+   public void test145() throws Exception {
 
+       DefaultMQProducer producer = new DefaultMQProducer("async-producer-group");
+       producer.setNamesrvAddr(nameSrvAddr);
+       producer.start();
+       Message message = new Message("asyncTopic", "我是一个异步消息".getBytes());
+       producer.send(message, new SendCallback() {
+           @Override
+           public void onSuccess(SendResult sendResult) {
+               System.out.println("发送成功");
+           }
 
-    }
+           @Override
+           public void onException(Throwable e) {
+               System.out.println("发送失败");
+           }
+       });
+
+       System.out.println("我先执行");
+       System.in.read();
+
+   }
 
    @Test
    public void test144(){
