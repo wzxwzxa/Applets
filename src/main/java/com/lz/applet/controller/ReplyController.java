@@ -43,6 +43,8 @@ public class ReplyController {
     @ResponseBody
     public ResultUtil addReply(String openId, String rContent, int rOtherid, int articleId) {
         try {
+            System.out.println("duduBranch提交617修改");
+            System.out.println("617新增");
             System.out.println("duduBranch提交");
             System.out.println("branch新增");
             boolean isOk = replyService.addReply(openId, rContent, rOtherid, articleId);
