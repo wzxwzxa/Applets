@@ -47,6 +47,7 @@ public class ReplyController {
             System.out.println("617新增");
             System.out.println("duduBranch提交");
             System.out.println("branch新增");
+            System.out.println("branch2新增");
             boolean isOk = replyService.addReply(openId, rContent, rOtherid, articleId);
             if (isOk) {
                 return new ResultUtil(200, "回复成功");
